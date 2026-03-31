@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "name": "Wooly Bugger",
+    "type": "Streamer",
+    "size": 6,
+    "color": "Olive",
+    "price": 2.99,
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "name": "Wooly Bugger",
+    "type": "Streamer",
+    "size": 8,
+    "color": "Black",
+    "price": 2.79,
+    "inStock": true,
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "name": "Elk Hair Caddis",
+    "type": "Dry Fly",
+    "size": 14,
+    "color": "Tan",
+    "price": 2.49,
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 4,
+    "name": "Adams",
+    "type": "Dry Fly",
+    "size": 16,
+    "color": "Gray",
+    "price": 2.29,
+    "inStock": true,
+    "rating": 4.6
+  },
+  {
+    "id": 5,
+    "name": "Pheasant Tail Nymph",
+    "type": "Nymph",
+    "size": 18,
+    "color": "Natural",
+    "price": 2.19,
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 6,
+    "name": "Hare's Ear Nymph",
+    "type": "Nymph",
+    "size": 16,
+    "color": "Brown",
+    "price": 2.39,
+    "inStock": false,
+    "rating": 4.5
+  },
+  {
+    "id": 7,
+    "name": "Zebra Midge",
+    "type": "Midge",
+    "size": 20,
+    "color": "Red",
+    "price": 1.99,
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 8,
+    "name": "Zebra Midge",
+    "type": "Midge",
+    "size": 22,
+    "color": "Black",
+    "price": 1.99,
+    "inStock": true,
+    "rating": 4.6
+  },
+  {
+    "id": 9,
+    "name": "Copper John",
+    "type": "Nymph",
+    "size": 14,
+    "color": "Copper",
+    "price": 2.59,
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 10,
+    "name": "Chubby Chernobyl",
+    "type": "Dry Fly",
+    "size": 10,
+    "color": "Yellow",
+    "price": 3.49,
+    "inStock": true,
+    "rating": 4.9
+  },
+  {
+    "id": 11,
+    "name": "San Juan Worm",
+    "type": "Wet Fly",
+    "size": 12,
+    "color": "Pink",
+    "price": 1.89,
+    "inStock": true,
+    "rating": 4.4
+  },
+  {
+    "id": 12,
+    "name": "Clouser Minnow",
+    "type": "Streamer",
+    "size": 4,
+    "color": "Chartreuse/White",
+    "price": 3.99,
+    "inStock": true,
+    "rating": 4.8
+  },
+  {
+    "id": 13,
+    "name": "Prince Nymph",
+    "type": "Nymph",
+    "size": 16,
+    "color": "Peacock",
+    "price": 2.49,
+    "inStock": true,
+    "rating": 4.6
+  },
+  {
+    "id": 14,
+    "name": "Blue Wing Olive",
+    "type": "Dry Fly",
+    "size": 18,
+    "color": "Olive",
+    "price": 2.29,
+    "inStock": true,
+    "rating": 4.7
+  },
+  {
+    "id": 15,
+    "name": "Muddler Minnow",
+    "type": "Streamer",
+    "size": 6,
+    "color": "Natural",
+    "price": 3.19,
+    "inStock": false,
+    "rating": 4.5
+  }
+]
