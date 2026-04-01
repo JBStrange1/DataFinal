@@ -1,6 +1,6 @@
 module.exports = {
     host: 'localhost',
     user: 'root',
-    password: 'YOUR_PASSWORD',
+    password: 'password',
     database: 'final-project'
 };
