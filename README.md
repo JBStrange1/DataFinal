@@ -50,20 +50,31 @@ Run the test data script:
 ```bash
 testdata.sql
 ```
-
-### 3. Install Dependencies
+### 3. Change dbconfig to match your credentials
+```bash
+    module.exports = {
+        host: 'localhost',
+        user: 'YOUR_USERNAME',
+        password: 'YOUR_PASSWORD',
+        database: 'YOUR_DBNAME'
+    };
+```
+### 4. Install Dependencies
 Make sure Node.js and npm are installed, then run:
 
 ```bash
 npm install
 ```
 
-### 4. Start the Application
-
+### 5. Start the Application
+In one terminal run the command:
 ```bash
-npm start
+npm run server
 ```
-
+To start the API server then in another terminal run the command:
+```bash
+npm run dev
+```
 ---
 
 ## Usage
