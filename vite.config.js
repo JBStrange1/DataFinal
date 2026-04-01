@@ -6,7 +6,10 @@ export default {
     outDir: '../dist'
   },
   server: {
-    port: 8080
+    port: 8080,
+    proxy: {
+      '/api': 'http://localhost:3006'
+    }
   },
   // Optional: Silence Sass deprecation warnings. See note below.
   css: {

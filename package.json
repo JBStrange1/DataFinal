@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "vite",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node API/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +14,8 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",
     "express": "^5.2.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.20.0"
   },
   "devDependencies": {
     "sass": "^1.98.0",
