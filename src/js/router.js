@@ -1,4 +1,3 @@
-
 const container = document.getElementById("flies");
 
 function loadCategory(category) {
@@ -11,7 +10,8 @@ function loadCategory(category) {
             data.forEach(item => {
                 html += `
                     <div class="card mx-3" style="width: 18rem;">
-                        <img src="..." class="card-img-top placeholder" alt="...">
+                        <div hidden id="${item.idProduct}"></div>
+                        <img src="${item.imagePath}" class="card-img-top" style="width: 100%, height="100%"" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">${item.title}</h5>
                             <p class="card-text">$${item.price}</p>

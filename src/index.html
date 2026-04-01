@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/src/scss/styles.scss">
     <script src="./js/main.js" type="module"></script>
-    <script src="./js/filterProducts.js" type="module"></script>
+    <script src="./js/router.js" type="module"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   </head>
   <body>
@@ -25,17 +25,18 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Admin</a>
             </li>
-            <li class="nav-item" ><a id="Equipment" class="nav-link" href="#">Equipment</a></li>
-            <li class="nav-item" ><a id="Materials" class="nav-link" href="#">Materials</a></li>
+            <li class="nav-item" ><a id="Equipment" class="nav-link" href="#Equipment">Equipment</a></li>
+            <li class="nav-item" ><a id="Materials" class="nav-link" href="#Materials">Materials</a></li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Fly Category's
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a id="Nymphs" class="dropdown-item" href="#">Nymphs</a></li>
-                <li><a id="Dry" class="dropdown-item" href="#">Dry</a></li>
-                <li><a id="Streamers" class="dropdown-item" href="#">Streamers</a></li>
-                  <li><a id="Midges" class="dropdown-item" href="#">Midges</a></li>
+                <li><a id="Nymphs" class="dropdown-item" href="#Flies">All Flies</a></li> 
+                <li><a id="Nymphs" class="dropdown-item" href="#Nymphs">Nymphs</a></li>
+                <li><a id="Drys" class="dropdown-item" href="#Drys">Drys</a></li>
+                <li><a id="Streamers" class="dropdown-item" href="#Streamers">Streamers</a></li>
+                  <li><a id="Midges" class="dropdown-item" href="#Midges">Midges</a></li>
               </ul>
             </li>
           </ul>
@@ -48,6 +49,7 @@
       </div>
     </nav>
     <div class="container text-center">
+        <h1 class="pageTitle"></h1>
         <div id="flies" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

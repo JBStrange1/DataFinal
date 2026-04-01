@@ -46,6 +46,42 @@ app.get('/api/materials', (req, res) => {
         res.json(rows);
     });
 });
+app.get('/api/Streamers', (req, res) => {
+    connection.query(queries.getAllStreamers, (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+    });
+});
+app.get('/api/drys', (req, res) => {
+    connection.query(queries.getAllDrys, (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+    });
+});
+app.get('/api/midges', (req, res) => {
+    connection.query(queries.getAllMidges, (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+    });
+});
+app.get('/api/nymphs', (req, res) => {
+    connection.query(queries.getAllNymphs, (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+    });
+});
 app.get('/api/flies', (req, res) => {
     connection.query(queries.getAllFlies, (err, rows) => {
         if (err) {

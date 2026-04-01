@@ -16,29 +16,29 @@ INSERT INTO Customers (idCustomer, name, address, phone) VALUES
 -- =========================
 -- PRODUCTS
 -- =========================
-INSERT INTO Products (idProduct, title, price, description, color) VALUES
+INSERT INTO Products (idProduct, title, price, description, color, imagePath) VALUES
 -- Flies
-(1, 'Wooly Bugger', 3.99, 'Streamer fly', 'Olive'),
-(2, 'Adams Dry Fly', 2.49, 'Dry fly', 'Gray'),
-(3, 'Pheasant Tail Nymph', 2.99, 'Nymph fly', 'Brown'),
-(4, 'Zebra Midge', 2.29, 'Small midge', 'Black'),
-(5, 'Elk Hair Caddis', 2.79, 'Caddis imitation', 'Tan'),
-(6, 'Stonefly Nymph', 3.49, 'Large nymph', 'Dark Brown'),
+(1, 'Wooly Bugger', 3.99, 'Streamer fly', 'Olive', './assets/WoolyBugger.jpeg'),
+(2, 'Adams Dry Fly', 2.49, 'Dry fly', 'Gray', './assets/Adams.jpeg'),
+(3, 'Pheasant Tail Nymph', 2.99, 'Nymph fly', 'Brown', './assets/PheasantTail.jpeg'),
+(4, 'Zebra Midge', 2.29, 'Small midge', 'Black', './assets/ZebraMidge.jpeg'),
+(5, 'Elk Hair Caddis', 2.79, 'Caddis imitation', 'Tan', './assets/ElkHairCaddis.jpeg'),
+(6, 'Stonefly Nymph', 3.49, 'Large nymph', 'Dark Brown', './assets/StoneflyNymph.jpeg'),
 
 -- Equipment
-(7, 'Fly Rod 5WT', 149.99, 'Beginner rod', 'Black'),
-(8, 'Fly Rod 8WT', 199.99, 'Heavy rod', 'Green'),
-(9, 'Fly Reel Standard', 89.99, 'Smooth reel', 'Silver'),
-(10, 'Fly Reel Pro', 129.99, 'High-end reel', 'Black'),
-(11, 'Floating Fly Line', 59.99, 'Floating line', 'Yellow'),
-(12, 'Waders', 199.99, 'Chest waders', 'Brown'),
+(7, 'Fly Rod 5WT', 149.99, 'Beginner rod', 'Black', './assets/FlyRod5wt.jpeg'),
+(8, 'Fly Rod 8WT', 199.99, 'Heavy rod', 'Green', './assets/FlyRod8wt.jpeg'),
+(9, 'Fly Reel Standard', 89.99, 'Smooth reel', 'Silver', './assets/FlyReelStandard.jpeg'),
+(10, 'Fly Reel Pro', 129.99, 'High-end reel', 'Black', './assets/FlyReelPro.jpeg'),
+(11, 'Floating Fly Line', 59.99, 'Floating line', 'Yellow', './assets/FlyLineFloating.jpeg'),
+(12, 'Waders', 199.99, 'Chest waders', 'Brown', './assets/waders.jpeg'),
 
 -- Materials
-(13, 'Hackle Feather Pack', 12.99, 'Feathers', 'Mixed'),
-(14, 'Thread Spool', 4.99, 'Thread', 'Black'),
-(15, 'Hook Pack Size 10', 9.99, 'Hooks', 'Silver'),
-(16, 'Bead Heads', 6.99, 'Beads', 'Gold'),
-(17, 'Dubbing Pack', 8.99, 'Dubbing', 'Mixed');
+(13, 'Hackle Feather Pack', 12.99, 'Feathers', 'Mixed', './assets/Hackle.jpeg'),
+(14, 'Thread Spool', 4.99, 'Thread', 'Black', './assets/flyThread.jpeg'),
+(15, 'Hook Pack Size 10', 9.99, 'Hooks', 'Silver', './assets/HookPack.jpeg'),
+(16, 'Bead Heads', 6.99, 'Beads', 'Gold', './assets/BeadHeads.jpeg'),
+(17, 'Dubbing Pack', 8.99, 'Dubbing', 'Mixed', './assets/Dubbing.jpeg');
 
 -- =========================
 -- FLIES
