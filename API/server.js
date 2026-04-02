@@ -5,7 +5,6 @@ const queries = require("./queries")
 
 const PORT = 3006;
 const app = express();
-
 console.log(dbconfig)
 const connection = mysql.createConnection(dbconfig);
 
@@ -22,22 +21,20 @@ app.use(express.json());
 
 function setUrl(url, myQuery){
     app.get(url, (req, res) => {
+        let queryToRun = myQuery;
       if(url.includes(":")){ 
         const id = req.params.id;
-        let stIdx = myQuery.search(":");
-        let tempQuery = myQuery.replace(myQuery.slice(stIdx, myQuery.length), id);
-        myQuery = tempQuery
+        queryToRun = queryToRun.replace(":id", id);
       }
-      connection.query(myQuery, (err, rows) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: err.message });
-            }
-            res.json(rows);
-        })
+      connection.query(queryToRun, (err, rows) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err.message });
+          }
+          res.json(rows);
+        });
   })
 }
-setUrl('/api/products/:id', queries.getProductById);
 setUrl('/api/products', queries.getAllProducts);
 setUrl('/api/equipment', queries.getAllEquipment);
 setUrl('/api/materials', queries.getAllMaterials);
@@ -46,6 +43,10 @@ setUrl('/api/drys', queries.getAllDrys);
 setUrl('/api/midges', queries.getAllMidges);
 setUrl('/api/nymphs', queries.getAllNymphs);
 setUrl('/api/flies',queries.getAllFlies);
+setUrl('/api/equipment/:id', queries.getEquipmentById);
+setUrl('/api/flies/:id', queries.getFlieById);
+setUrl('/api/materials/:id', queries.getMaterialById);
+setUrl('/api/products/:id', queries.getProductById);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

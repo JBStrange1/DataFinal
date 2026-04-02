@@ -22,7 +22,8 @@ module.exports = {
     getAllNymphs: 
         "select * from Products p, Flies f "+
         "where f.idProduct = p.idProduct and f.type = 'nymph'",
-    getProductById: 
-        "select * from Products " +
-        "where idProduct = :id",
+    getProductById:"select * from Products where idProduct = :id",
+    getEquipmentById:"select * from products p, equipment f where p.idProduct = f.idProduct and p.idProduct = :id",
+    getMaterialById:"select * from products p, materials f where p.idProduct = f.idProduct and p.idProduct = :id",
+    getFlieById:"select * from products p, flies f where p.idProduct = f.idProduct and p.idProduct = :id",
 }
