@@ -1,4 +1,5 @@
-          
+import { addToCart } from './addToCart.js';          
+
 export function getProductsById(category, id){
     let html = "";
     const container = document.getElementById("flies");
@@ -30,7 +31,7 @@ export function getProductsById(category, id){
                         <label class="form-label">Quantity</label>
                         <input
                             type="number"
-                            class="form-control bg-dark text-light border-secondary w-25"
+                            class="form-control bg-dark text-light border-secondary w-25 quantity-input"
                             value="1"
                             min="1"
                         />
@@ -38,7 +39,7 @@ export function getProductsById(category, id){
 
                         <!-- Buttons -->
                         <div class="d-flex gap-2 mb-4">
-                        <button onclick="addToCart(${item.idProduct})"class="btn btn-primary btn-lg">Add to Cart</button>
+                        <button class="btn btn-primary btn-lg add-to-cart" data-id="${item.idProduct}">Add to Cart</button>
                         <button class="btn btn-outline-light btn-lg">Buy Now</button>
                         </div>
 
@@ -65,5 +66,18 @@ export function getProductsById(category, id){
             `;
         });
         container.innerHTML = html;
+        
+       document.querySelectorAll(".add-to-cart").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                const id = btn.dataset.id;
+                const item = data.find(p => p.idProduct == id);
+                const qtyInput = document.querySelector(".quantity-input");
+                const quantity = parseInt(qtyInput.value) || 1;
+
+                addToCart(item, quantity);
+            });
+        });
     });
 }

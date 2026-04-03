@@ -1,12 +1,15 @@
 
 import { getProductsById } from './productDescVW.js'
-import { getAllProducts } from './getAllProducts.js'
+import { getAllProducts} from './getAllProducts.js'
+import { addToCart, updateCartCount} from './addToCart.js'
+
 
 function loadCategory(category, id) {
     if(id)getProductsById(category, id);
     else getAllProducts(category, id) ; 
 }
 function handleRoute() {
+    updateCartCount();
     let hash = window.location.hash.replace("#", "");
     let id = 0;
     let hasNumber = /\d/;
