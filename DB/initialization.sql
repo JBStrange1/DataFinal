@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `final-project`.`Products` (
   `price` DECIMAL(8,2) NULL,
   `description` VARCHAR(45) NULL,
   `color` VARCHAR(45) NULL,
+  `category` VARCHAR(45) NULL,
   `imagePath` VARCHAR(45) NULL,
   PRIMARY KEY (`idProduct`))
 ENGINE = InnoDB
