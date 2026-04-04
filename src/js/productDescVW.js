@@ -11,7 +11,7 @@ export function getProductsById(category, id){
                 <div class="container mx-0 w-100">
                     <div class="row g-5 bg-body-tertiary p-4 rounded shadow">
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 ">
                         <img
                         src="${item.imagePath}"
                         class="img-fluid rounded border border-secondary"

@@ -9,7 +9,7 @@ export function getAllProducts(category) {
         .then(data => {
             data.forEach(item => {
                 html += `
-                    <div class="card mx-3" style="width: 18rem;">
+                    <div class="card p-0 mx-3" style="width: 18rem;">
                         <img src="${item.imagePath}" class="card-img-top" style="width: 100%; height: 100%;" alt="${item.title}">
                         <div class="card-body">
                             <a class="btn" href="#${item.category}/${item.idProduct}">

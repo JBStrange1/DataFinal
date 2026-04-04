@@ -1,11 +1,10 @@
 let cart = [];
 export function updateCartCount() {
     const counter = document.getElementById("counter");
-
-    const total = cart.reduce((sum, item) => sum + item.qty, 0);
-
+    let currentCart = JSON.parse(sessionStorage.getItem("currentCart"));
+    let total = 0;
+    if(currentCart) total = currentCart.reduce((sum, item) => sum + item.qty, 0);
     counter.textContent = total;
-
     if (total === 0) {
         counter.style.display = "none";
     } else {
@@ -14,6 +13,8 @@ export function updateCartCount() {
 }
 
 export function addToCart(item, quantity = 1) {
+    let curCart = getCart();
+    if(curCart) cart = curCart;
     const existing = cart.find(p => p.idProduct === item.idProduct);
 
     if (existing) {
@@ -21,7 +22,10 @@ export function addToCart(item, quantity = 1) {
     } else {
         cart.push({ ...item, qty: quantity });
     }
-
     updateCartCount();
-    console.log("cart:", cart);
+    sessionStorage.setItem("currentCart",JSON.stringify(cart));
+}
+export function getCart(){
+    let curCart = JSON.parse(sessionStorage.getItem("currentCart"));
+    return curCart;
 }

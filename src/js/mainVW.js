@@ -1,11 +1,13 @@
 
 import { getProductsById } from './productDescVW.js'
-import { getAllProducts} from './getAllProducts.js'
-import { addToCart, updateCartCount} from './addToCart.js'
+import { loadCart } from './cartVW.js';
+import { getAllProducts } from './getAllProducts.js'
+import { updateCartCount } from './addToCart.js'
 
 
 function loadCategory(category, id) {
-    if(id)getProductsById(category, id);
+    if(category == "cart") loadCart();
+    else if(id)getProductsById(category, id);
     else getAllProducts(category, id) ; 
 }
 function handleRoute() {
