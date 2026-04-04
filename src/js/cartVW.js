@@ -1,11 +1,11 @@
-import { getCart } from "./addToCart";
+import { getCart, removeFromCart } from "./addToCart";
 
 export function loadCart(){
     const container = document.getElementById("flies");
     const cart  = getCart();
-       let cartItemsHTML = "";
+    let cartItemsHTML = "";
     let subtotal = 0;
-
+    console.log(cart)
     cart.forEach(element => {
         const itemTotal = element.price * element.qty;
         subtotal += itemTotal;
@@ -33,7 +33,7 @@ export function loadCart(){
 
                     <div class="col-md-3 text-end pe-4">
                         <h5>$${itemTotal.toFixed(2)}</h5>
-                        <button class="btn btn-sm btn-outline-danger mt-2">Remove</button>
+                        <button data-id="${element.idProduct}" class="btn btn-sm btn-outline-danger remove-from-cart mt-2">Remove</button>
                     </div>
                 </div>
             </div>
@@ -80,4 +80,13 @@ export function loadCart(){
         </div>
     `;
     container.innerHTML = html
+    
+        document.querySelectorAll(".remove-from-cart").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const id = btn.dataset.id;
+                removeFromCart(id);
+                window.location.reload(true);
+            });
+        });
 }
