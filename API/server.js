@@ -19,34 +19,53 @@ connection.connect((err) => {
 app.use(express.json());
 
 
-function setUrl(url, myQuery){
-    app.get(url, (req, res) => {
-        let queryToRun = myQuery;
-      if(url.includes(":")){ 
-        const id = req.params.id;
-        queryToRun = queryToRun.replace(":id", id);
-      }
-      connection.query(queryToRun, (err, rows) => {
-          if (err) {
-            console.error(err);
-            return res.status(500).json({ error: err.message });
-          }
-          res.json(rows);
-        });
+function setGETUrl(url, myQuery){
+  app.get(url, (req, res) => { 
+    const id = req.params.id;
+    connection.query(myQuery, [id] ,(err, rows) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
+      });
   })
 }
-setUrl('/api/products', queries.getAllProducts);
-setUrl('/api/equipment', queries.getAllEquipment);
-setUrl('/api/materials', queries.getAllMaterials);
-setUrl('/api/Streamers', queries.getAllStreamers);
-setUrl('/api/drys', queries.getAllDrys);
-setUrl('/api/midges', queries.getAllMidges);
-setUrl('/api/nymphs', queries.getAllNymphs);
-setUrl('/api/flies',queries.getAllFlies);
-setUrl('/api/equipment/:id', queries.getEquipmentById);
-setUrl('/api/flies/:id', queries.getFlieById);
-setUrl('/api/materials/:id', queries.getMaterialById);
-setUrl('/api/products/:id', queries.getProductById);
+function setPOSTUrl(url, myQuery){
+  app.post(url, (req, res) => {
+    let vals = [];
+    if(req.body){
+      vals = req.body;
+    }
+    connection.query(myQuery,[vals] ,(err2, rows2) => {
+      if (err2) {
+        console.error(err2);
+        return res.status(500).json({ error: err2.message });
+      }
+      res.json(rows2);
+    });
+  });
+}
+
+//GET URLS
+setGETUrl('/api/products', queries.getAllProducts);
+setGETUrl('/api/equipment', queries.getAllEquipment);
+setGETUrl('/api/materials', queries.getAllMaterials);
+setGETUrl('/api/Streamers', queries.getAllStreamers);
+setGETUrl('/api/drys', queries.getAllDrys);
+setGETUrl('/api/midges', queries.getAllMidges);
+setGETUrl('/api/nymphs', queries.getAllNymphs);
+setGETUrl('/api/flies',queries.getAllFlies);
+setGETUrl('/api/equipment/:id', queries.getEquipmentById);
+setGETUrl('/api/flies/:id', queries.getFlieById);
+setGETUrl('/api/materials/:id', queries.getMaterialById);
+setGETUrl('/api/products/:id', queries.getProductById);
+setGETUrl('/api/lastId', queries.getLastOrderId);
+
+//POST URLS
+setPOSTUrl('/api/order',queries.insertOrder);
+setPOSTUrl('/api/orderitem',queries.insertOrderItems);
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

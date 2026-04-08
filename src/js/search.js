@@ -1,3 +1,5 @@
+import { addToCart } from './addToCart.js'
+
 const searchInput = document.getElementById("searchInput")
 const searchBtn = document.getElementById("searchBtn")
 const container = document.getElementById("flies")
@@ -24,6 +26,16 @@ export function search(input = ""){
                 }
             })
             container.innerHTML = html
+            document.querySelectorAll(".add-to-cart").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    const id = btn.dataset.id;
+                    const item = data.find(p => p.idProduct == id);
+
+                    addToCart(item);
+                });
+            });
         })
 }
 searchBtn.addEventListener("click", (e) =>{

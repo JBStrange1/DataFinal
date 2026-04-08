@@ -1,11 +1,10 @@
-import { getCart, removeFromCart } from "./addToCart";
+import { getCart, removeFromCart, resetCart } from "./addToCart";
 
 export function loadCart(){
     const container = document.getElementById("flies");
-    const cart  = getCart();
+    const cart  = getCart() || [];
     let cartItemsHTML = "";
     let subtotal = 0;
-    console.log(cart)
     cart.forEach(element => {
         const itemTotal = element.price * element.qty;
         subtotal += itemTotal;
@@ -41,7 +40,7 @@ export function loadCart(){
     });
 
     const shipping = cart.length > 0 ? 5.00 : 0;
-    const total = subtotal + shipping;
+    const total = subtotal + shipping || 0;
 
     const html = `
         <div class="container mx-0 p-0 w-100">
@@ -73,7 +72,7 @@ export function loadCart(){
                             <strong>$${total.toFixed(2)}</strong>
                         </div>
 
-                        <button class="btn btn-primary w-100">Checkout</button>
+                        <button class="btn btn-primary checkout w-100">Checkout</button>
                     </div>
                 </div>
             </div>
@@ -88,5 +87,35 @@ export function loadCart(){
                 removeFromCart(id);
                 window.location.reload(true);
             });
+        });
+        let chkoutBtn = document.querySelector(".checkout");
+        chkoutBtn.addEventListener("click", async(e) => {
+            e.preventDefault();
+            let orderId = 0;
+            await fetch("/api/order", { method: "POST" })
+                .then((res) => {
+                    res.json();
+                })
+                .then((json) => console.log(json))
+            await fetch("/api/lastId")
+                .then(res => res.json())
+                .then(data => {
+                    orderId = data[0].orderId
+            })
+            cart.forEach(async item => {
+                let insertVals = [item.idProduct, item.price, orderId];
+                for(let i = 0; i < item.qty; i++){
+                    console.log(insertVals);
+                    await fetch("/api/orderitem", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(insertVals)
+                    })
+                        .then(res =>  res.json())
+                        .then(data => console.log(data));
+                }
+            });
+            resetCart();
+            window.location.reload();
         });
 }
