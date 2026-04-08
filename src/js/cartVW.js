@@ -102,17 +102,22 @@ export function loadCart(){
                 .then(data => {
                     orderId = data[0].orderId
             })
-            cart.forEach(async item => {
-                let insertVals = [item.idProduct, item.price, orderId];
+            await cart.forEach(async item => {
+                let insertVals = await [item.idProduct, item.price, orderId];
+                console.log(item.qty);
                 for(let i = 0; i < item.qty; i++){
-                    console.log(insertVals);
                     await fetch("/api/orderitem", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(insertVals)
                     })
-                        .then(res =>  res.json())
-                        .then(data => console.log(data));
+                        .then(async res =>  await res.json())
+                        .then(async data => {
+                            if(await data.affecteddRows == 0){
+                                await console.error("Could not process order");
+                            }
+                        });
+                    
                 }
             });
             resetCart();
