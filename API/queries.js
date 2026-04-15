@@ -15,7 +15,7 @@ module.exports = {
     getMaterialById:"select * from products p, materials f where p.idProduct = f.idProduct and p.idProduct = ?",
     getFlieById:"select * from products p, flies f where p.idProduct = f.idProduct and p.idProduct = ?",
     
-    //INSERTS
+    //POST INSERTS
     insertOrder:"Insert into orders(OrderDate, idCustomer) values(curdate(), 1);",
     insertOrderItems:"Insert into orderitems(idProduct, checkout_price, idOrder) values(?)",
 

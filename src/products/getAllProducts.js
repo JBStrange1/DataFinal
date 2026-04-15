@@ -1,4 +1,4 @@
-import { addToCart } from './addToCart.js';
+import { addToCart } from '../cart/cart.js';
 export function getAllProducts(category) {
     const container = document.getElementById("flies");
     container.innerHTML = "";

@@ -1,4 +1,4 @@
-import { addToCart } from './addToCart.js'
+import { addToCart } from '../cart/cart.js'
 
 const searchInput = document.getElementById("searchInput")
 const searchBtn = document.getElementById("searchBtn")

@@ -1,5 +1,4 @@
 let cart = [];
-
 export function updateCartCount() {
     const counter = document.getElementById("counter");
     let currentCart = getCart()
@@ -38,9 +37,11 @@ export function addToCart(item, quantity = 1) {
     updateCartCount();
     sessionStorage.setItem("currentCart",JSON.stringify(cart));
 }
+
 export function resetCart(){
     sessionStorage.removeItem("currentCart");
 }
+
 export function getCart(){
     let curCart = JSON.parse(sessionStorage.getItem("currentCart"));
     return curCart;

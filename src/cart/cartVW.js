@@ -1,5 +1,5 @@
-import { getCart, removeFromCart, resetCart } from "./addToCart";
-
+import { getCart, removeFromCart, resetCart } from "./cart";
+import { customerCheckoutVW } from "../order/customerCheckoutVW";
 export function loadCart(){
     const container = document.getElementById("flies");
     const cart  = getCart() || [];
@@ -72,55 +72,62 @@ export function loadCart(){
                             <strong>$${total.toFixed(2)}</strong>
                         </div>
 
-                        <button class="btn btn-primary checkout w-100">Checkout</button>
+                        <button href="#checkout" class="btn btn-primary checkout w-100">Checkout</button>
                     </div>
                 </div>
             </div>
         </div>
     `;
-    container.innerHTML = html
-    
-        document.querySelectorAll(".remove-from-cart").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                e.preventDefault();
-                const id = btn.dataset.id;
-                removeFromCart(id);
-                window.location.reload(true);
-            });
-        });
-        let chkoutBtn = document.querySelector(".checkout");
-        chkoutBtn.addEventListener("click", async(e) => {
+    container.innerHTML = html;
+    document.querySelectorAll(".remove-from-cart").forEach(btn => {
+        btn.addEventListener("click", (e) => {
             e.preventDefault();
-            let orderId = 0;
-            await fetch("/api/order", { method: "POST" })
-                .then((res) => {
-                    res.json();
-                })
-                .then((json) => console.log(json))
-            await fetch("/api/lastId")
-                .then(res => res.json())
-                .then(data => {
-                    orderId = data[0].orderId
-            })
-            await cart.forEach(async item => {
-                let insertVals = await [item.idProduct, item.price, orderId];
-                console.log(item.qty);
-                for(let i = 0; i < item.qty; i++){
-                    await fetch("/api/orderitem", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(insertVals)
-                    })
-                        .then(async res =>  await res.json())
-                        .then(async data => {
-                            if(await data.affecteddRows == 0){
-                                await console.error("Could not process order");
-                            }
-                        });
-                    
-                }
-            });
-            resetCart();
-            window.location.reload();
+            const id = btn.dataset.id;
+            removeFromCart(id);
+            window.location.reload(true);
         });
+    });
+    let chkoutBtn = document.querySelector(".checkout");
+    chkoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if(cart.length > 0){
+            console.log(cart)
+            customerCheckoutVW();
+        }
+    });
 }
+    // let chkoutBtn = document.querySelector(".checkout");
+    // chkoutBtn.addEventListener("click", async(e) => {
+    //     e.preventDefault();
+    //     let orderId = 0;
+    //     await fetch("/api/order", { method: "POST" })
+    //         .then((res) => {
+    //             res.json();
+    //         })
+    //         .then((json) => console.log(json))
+    //     await fetch("/api/lastId")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             orderId = data[0].orderId
+    //     })
+    //     await cart.forEach(async item => {
+    //         let insertVals = await [item.idProduct, item.price, orderId];
+    //         console.log(item.qty);
+    //         for(let i = 0; i < item.qty; i++){
+    //             await fetch("/api/orderitem", {
+    //                 method: "POST",
+    //                 headers: { "Content-Type": "application/json" },
+    //                 body: JSON.stringify(insertVals)
+    //             })
+    //                 .then(async res =>  await res.json())
+    //                 .then(async data => {
+    //                     if(await data.affecteddRows == 0){
+    //                         await console.error("Could not process order");
+    //                     }
+    //                 })
+                
+    //         }
+    //     });
+    //     resetCart();
+    //     window.location.reload();
+    // });
