@@ -3,10 +3,12 @@ import { getProductsById } from './products/productDescVW.js'
 import { loadCart } from './cart/cartVW.js';
 import { getAllProducts } from './products/getAllProducts.js'
 import { updateCartCount } from './cart/cart.js'
+import { loadSalesReport } from './reporting/reporting.js';
 
 
 function loadCategory(category, id) {
     if(category == "cart") loadCart();
+    else if(category == "Admin") loadSalesReport();
     else if(id)getProductsById(category, id);
     else getAllProducts(category, id); 
 }

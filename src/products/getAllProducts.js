@@ -7,6 +7,7 @@ export function getAllProducts(category) {
     fetch(`/api/${category.toLowerCase()}`)
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             data.forEach(item => {
                 html += `
                     <div class="card p-0 mx-3" style="width: 18rem;">

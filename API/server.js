@@ -61,6 +61,7 @@ setGETUrl('/api/flies/:id', queries.getFlieById);
 setGETUrl('/api/materials/:id', queries.getMaterialById);
 setGETUrl('/api/products/:id', queries.getProductById);
 setGETUrl('/api/lastId', queries.getLastOrderId);
+setGETUrl('/api/salesReports', queries.getSalesReport);
 
 //POST URLS
 setPOSTUrl('/api/order',queries.insertOrder);

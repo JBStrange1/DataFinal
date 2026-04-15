@@ -20,5 +20,6 @@ module.exports = {
     insertOrderItems:"Insert into orderitems(idProduct, checkout_price, idOrder) values(?)",
 
     //MISCELLANEOUS
-    getLastOrderId:"select LAST_INSERT_ID() as orderId; "
+    getLastOrderId:"select LAST_INSERT_ID() as orderId; ",
+    getSalesReport:"call salesReporting();"
 }
