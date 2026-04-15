@@ -1,5 +1,6 @@
 import { getCart, removeFromCart, resetCart } from "./cart";
 import { customerCheckoutVW } from "../order/customerCheckoutVW";
+
 export function loadCart(){
     const container = document.getElementById("flies");
     const cart  = getCart() || [];

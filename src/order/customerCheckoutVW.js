@@ -13,22 +13,22 @@ export function customerCheckoutVW(){
                         <form>
                             <div class="mb-3">
                                 <label class="form-label">First Name</label>
-                                <input required  type="text" class="form-control bg-dark text-light border-secondary" placeholder="First Name">
+                                <input required  id="firstName" type="text" class="form-control bg-dark text-light border-secondary" placeholder="First Name">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input required type="text" class="form-control bg-dark text-light border-secondary" placeholder="Last Name">
+                                <input required type="text" id="lastName" class="form-control bg-dark text-light border-secondary" placeholder="Last Name">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Address</label>
-                                <input required type="text" class="form-control bg-dark text-light border-secondary" placeholder="Address">
+                                <input required type="text" id="address" class="form-control bg-dark text-light border-secondary" placeholder="Address">
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label">Phone Number</label>
-                                <input required type="tel" class="form-control bg-dark text-light border-secondary" placeholder="Phone Number">
+                                <input required type="tel" id="phoneNumber" class="form-control bg-dark text-light border-secondary" placeholder="Phone Number">
                             </div>
 
                             <input  id="confirmBtn" type="submit" class="btn btn-primary w-100">
@@ -44,17 +44,30 @@ export function customerCheckoutVW(){
 }
 
 export function confirmOrder(){
-    let cart = getCart();
     let confirmBtn = document.getElementById("confirmBtn");
     confirmBtn.addEventListener("click",async (e) => {
-        e.preventDefault();
+        let firstName = document.getElementById("firstName");
+        let lastName= document.getElementById("lastName");
+        let address = document.getElementById("address");
+        let phoneNumber = document.getElementById("phoneNumber");
+        if(firstName.value && lastName.value && address.value && phoneNumber.value){
+            e.preventDefault();
+            commitOrder();
+            resetCart();
+            conformationPage();   
+        }
+    })
+}
+
+async function commitOrder(){
+        let cart = getCart();
         let orderId = 0;
         await fetch("/api/order", { method: "POST" })
             .then((res) => {
                 res.json();
             })
             .then((json) => console.log(json))
-        await fetch("/api/lastId")
+        await fetch("/api/lastId") 
             .then(res => res.json())
             .then(data => {
                 orderId = data[0].orderId
@@ -77,7 +90,4 @@ export function confirmOrder(){
                 
             }
         });
-        resetCart();
-        conformationPage();
-    })
 }

@@ -19,6 +19,5 @@ export function conformationPage(){
     homeBtn.addEventListener("click", (e) => {
         window.location.hash = "Products";
         getAllProducts("Products");
-
     });
 }
