@@ -52,7 +52,8 @@ export function confirmOrder(){
         let phoneNumber = document.getElementById("phoneNumber");
         if(firstName.value && lastName.value && address.value && phoneNumber.value){
             e.preventDefault();
-            commitOrder();
+            checkout();
+            //commitOrder();
             resetCart();
             conformationPage();   
         }
@@ -86,4 +87,20 @@ async function commitOrder(){
                     }
                 })
         });
+}
+function checkout(){
+    let cart = getCart();
+    cart.forEach(item => {
+        fetch("/api/checkout", {
+            method: "POST", 
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(item)
+        })
+            .then(res => res.json())
+            .then( data => {
+                    if(data.affecteddRows == 0){
+                        console.error("Could not process order");
+                }
+            })
+    })
 }

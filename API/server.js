@@ -18,6 +18,41 @@ connection.connect((err) => {
 
 app.use(express.json());
 
+app.post("/api/checkout", (req, res) => {
+    let item = req.body;
+    connection.query(queries.getCurrentStockById, [item.idProduct], (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err.message });
+        }
+        const stockQty = rows[0].stock;
+        if (stockQty < item.qty) {
+            return res.status(500).json({ error: "No items in stock" });
+        }
+        connection.query(queries.insertOrder, (err, orderRows) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: err.message });
+            }
+
+            const orderId = orderRows.insertId;
+
+            if (!orderId) {
+                return res.status(500).json({ error: "Could not get OrderId" });
+            }
+
+            const insertVals = [item.idProduct, item.price, orderId, item.qty];
+
+            connection.query(queries.insertOrderItems, [insertVals], (err, rows) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: err.message });
+                }
+                res.json(rows);
+            });
+        });
+    });
+});
 
 function setGETUrl(url, myQuery){
   app.get(url, (req, res) => { 
@@ -70,9 +105,8 @@ function setPOSTUrl(url, myQuery){
   setGETUrl('/api/productSalesQuarter', queries.getProductSalesQuarter);
   
 //POST URLS
-setPOSTUrl('/api/order',queries.insertOrder);
-setPOSTUrl('/api/orderitem',queries.insertOrderItems);
-
+  setPOSTUrl('/api/order',queries.insertOrder);
+  setPOSTUrl('/api/orderitem',queries.insertOrderItems);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

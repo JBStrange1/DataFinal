@@ -22,5 +22,6 @@ module.exports = {
     //MISCELLANEOUS
     getLastOrderId:"select LAST_INSERT_ID() as orderId; ",
     getSalesReport:"call salesReporting();",
-    getProductSalesQuarter:"call productSalesQuarter();"
+    getProductSalesQuarter:"call productSalesQuarter();",
+    getCurrentStockById:"select stock from products where idProduct = ?;"
 }

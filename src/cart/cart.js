@@ -33,8 +33,8 @@ export function addToCart(item, quantity = 1) {
     } else {
         cart.push({ ...item, qty: quantity });
     }
-    updateCartCount();
     sessionStorage.setItem("currentCart",JSON.stringify(cart));
+    updateCartCount();
 }
 
 export function resetCart(){
