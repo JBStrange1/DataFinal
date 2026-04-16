@@ -79,5 +79,6 @@ export function getProductsById(category, id){
                 addToCart(item, quantity);
             });
         });
+
     });
 }

@@ -17,9 +17,10 @@ module.exports = {
     
     //POST INSERTS
     insertOrder:"Insert into orders(OrderDate, idCustomer) values(curdate(), 1);",
-    insertOrderItems:"Insert into orderitems(idProduct, checkout_price, idOrder) values(?)",
+    insertOrderItems:"Insert into orderitems(idProduct, checkout_price, idOrder, quantity) values(?)",
 
     //MISCELLANEOUS
     getLastOrderId:"select LAST_INSERT_ID() as orderId; ",
-    getSalesReport:"call salesReporting();"
+    getSalesReport:"call salesReporting();",
+    getProductSalesQuarter:"call productSalesQuarter();"
 }

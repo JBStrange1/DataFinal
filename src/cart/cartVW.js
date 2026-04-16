@@ -1,15 +1,16 @@
-import { getCart, removeFromCart, resetCart } from "./cart";
+import { addToCart, getCart, removeFromCart, resetCart } from "./cart";
 import { customerCheckoutVW } from "../order/customerCheckoutVW";
 
 export function loadCart(){
     const container = document.getElementById("flies");
     const cart  = getCart() || [];
+    let prevVal = 0;
     let cartItemsHTML = "";
     let subtotal = 0;
     cart.forEach(element => {
         const itemTotal = element.price * element.qty;
         subtotal += itemTotal;
-
+        prevVal = element.qty;
         cartItemsHTML += `
             <div class="card mb-3 bg-body-tertiary border-secondary">
                 <div class="row g-0 align-items-center p-3">
@@ -24,7 +25,8 @@ export function loadCart(){
 
                             <input
                                 type="number"
-                                class="form-control bg-dark text-light border-secondary w-50"
+                                data-item-id="${element.idProduct}"                 
+                                class="form-control bg-dark text-light border-secondary w-50 quantityInc"
                                 value="${element.qty}"
                                 min="1"
                             >
@@ -92,43 +94,25 @@ export function loadCart(){
     chkoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
         if(cart.length > 0){
-            console.log(cart)
             customerCheckoutVW();
         }
     });
+    const numberInputs = document.querySelectorAll(".quantityInc");
+    if(numberInputs){
+        numberInputs.forEach(input => {
+            input.addEventListener("change", (e) => {
+                const itemId = Number(input.dataset.itemId);
+                if(input.value > prevVal){
+                    addToCart(cart.find(item => item.idProduct == itemId), 1);
+                }else{ 
+                    if(prevVal <= 0){
+                        console.error("hey man stop it");
+                    }else{
+                        addToCart(cart.find(item => item.idProduct == itemId), -1);
+                    }
+                }
+                loadCart();
+            });
+        })
+    }
 }
-    // let chkoutBtn = document.querySelector(".checkout");
-    // chkoutBtn.addEventListener("click", async(e) => {
-    //     e.preventDefault();
-    //     let orderId = 0;
-    //     await fetch("/api/order", { method: "POST" })
-    //         .then((res) => {
-    //             res.json();
-    //         })
-    //         .then((json) => console.log(json))
-    //     await fetch("/api/lastId")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             orderId = data[0].orderId
-    //     })
-    //     await cart.forEach(async item => {
-    //         let insertVals = await [item.idProduct, item.price, orderId];
-    //         console.log(item.qty);
-    //         for(let i = 0; i < item.qty; i++){
-    //             await fetch("/api/orderitem", {
-    //                 method: "POST",
-    //                 headers: { "Content-Type": "application/json" },
-    //                 body: JSON.stringify(insertVals)
-    //             })
-    //                 .then(async res =>  await res.json())
-    //                 .then(async data => {
-    //                     if(await data.affecteddRows == 0){
-    //                         await console.error("Could not process order");
-    //                     }
-    //                 })
-                
-    //         }
-    //     });
-    //     resetCart();
-    //     window.location.reload();
-    // });

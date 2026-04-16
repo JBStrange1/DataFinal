@@ -48,21 +48,27 @@ function setPOSTUrl(url, myQuery){
 }
 
 //GET URLS
-setGETUrl('/api/products', queries.getAllProducts);
-setGETUrl('/api/equipment', queries.getAllEquipment);
-setGETUrl('/api/materials', queries.getAllMaterials);
-setGETUrl('/api/Streamers', queries.getAllStreamers);
-setGETUrl('/api/drys', queries.getAllDrys);
-setGETUrl('/api/midges', queries.getAllMidges);
-setGETUrl('/api/nymphs', queries.getAllNymphs);
-setGETUrl('/api/flies',queries.getAllFlies);
-setGETUrl('/api/equipment/:id', queries.getEquipmentById);
-setGETUrl('/api/flies/:id', queries.getFlieById);
-setGETUrl('/api/materials/:id', queries.getMaterialById);
-setGETUrl('/api/products/:id', queries.getProductById);
-setGETUrl('/api/lastId', queries.getLastOrderId);
-setGETUrl('/api/salesReports', queries.getSalesReport);
-
+  //QUERY'S
+  setGETUrl('/api/products', queries.getAllProducts);
+  setGETUrl('/api/equipment', queries.getAllEquipment);
+  setGETUrl('/api/materials', queries.getAllMaterials);
+  setGETUrl('/api/Streamers', queries.getAllStreamers);
+  setGETUrl('/api/drys', queries.getAllDrys);
+  setGETUrl('/api/midges', queries.getAllMidges);
+  setGETUrl('/api/nymphs', queries.getAllNymphs);
+  setGETUrl('/api/flies',queries.getAllFlies);
+  
+  //GET BY ID
+  setGETUrl('/api/equipment/:id', queries.getEquipmentById);
+  setGETUrl('/api/flies/:id', queries.getFlieById);
+  setGETUrl('/api/materials/:id', queries.getMaterialById);
+  setGETUrl('/api/products/:id', queries.getProductById);
+  setGETUrl('/api/lastId', queries.getLastOrderId);
+  
+  //REPORTING 
+  setGETUrl('/api/salesReports', queries.getSalesReport);
+  setGETUrl('/api/productSalesQuarter', queries.getProductSalesQuarter);
+  
 //POST URLS
 setPOSTUrl('/api/order',queries.insertOrder);
 setPOSTUrl('/api/orderitem',queries.insertOrderItems);

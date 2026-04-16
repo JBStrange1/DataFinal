@@ -73,21 +73,17 @@ async function commitOrder(){
                 orderId = data[0].orderId
         })
         await cart.forEach(async item => {
-            let insertVals = await [item.idProduct, item.price, orderId];
-            console.log(item.qty);
-            for(let i = 0; i < item.qty; i++){
-                await fetch("/api/orderitem", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(insertVals)
+            let insertVals = await [item.idProduct, item.price, orderId, item.qty];
+            await fetch("/api/orderitem", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(insertVals)
+            })
+                .then(async res =>  await res.json())
+                .then(async data => {
+                    if(await data.affecteddRows == 0){
+                        await console.error("Could not process order");
+                    }
                 })
-                    .then(async res =>  await res.json())
-                    .then(async data => {
-                        if(await data.affecteddRows == 0){
-                            await console.error("Could not process order");
-                        }
-                    })
-                
-            }
         });
 }

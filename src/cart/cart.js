@@ -11,7 +11,6 @@ export function updateCartCount() {
         counter.style.display = "block";
     }
 }
-
 export function removeFromCart(id){
     let curCart = getCart();
     let index = 0;
