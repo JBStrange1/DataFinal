@@ -24,6 +24,7 @@ Create table if not exists Orders(
     idOrder int auto_increment,
     OrderDate DATE,
     idCustomer int,
+    total decimal(8,2),
     Primary Key (idOrder),
     Foreign Key (idCustomer) References Customers(idCustomer)
 );

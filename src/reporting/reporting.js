@@ -16,7 +16,6 @@ function loadSalesReport() {
     fetch('/api/salesReports')
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             const rows = data[0];
             const ctx = document.getElementById("salesReporting");
             const labels = rows.map(row => row.day.split("T")[0]);
@@ -50,7 +49,6 @@ function loadStock(){
     fetch('/api/stock')
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             const rows = data;
             const ctx  = document.getElementById("productStock");
             const labels = rows.map(row => row.title);
@@ -84,7 +82,6 @@ function loadProductSalesQuarter(){
     fetch('/api/productSalesQuarter')
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             const rows = data[0];
             const ctx  = document.getElementById("productSales");
             const labels = rows.map(row => row.title);

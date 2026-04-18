@@ -117,7 +117,6 @@ export function loadCart(){
     }
     const stockTxt = document.querySelectorAll(".stock")
     stockTxt.forEach(element => {
-        console.log(element.dataset.stock);
         if(element.dataset.stock <= 10){
             element.classList.remove('text-secondary');
              element.classList.add('text-danger');

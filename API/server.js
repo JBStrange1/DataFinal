@@ -19,46 +19,85 @@ connection.connect((err) => {
 app.use(express.json());
 
 app.post("/api/checkout", (req, res) => {
-    let item = req.body;
-    //Checks stock for item
-    connection.query(queries.getCurrentStockById, [item.idProduct], (err, rows) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: err.message });
+    const cart = req.body;
+
+    if (!Array.isArray(cart) || cart.length === 0) {
+        return res.status(400).json({ error: "Cart is empty" });
+    }
+
+    // First check stock for all items
+    const checkStock = (index) => {
+        if (index >= cart.length) {
+            return insertOrder();
         }
-        const stockQty = rows[0].stock;
-        if (stockQty < item.qty) {
-            return res.status(500).json({ error: "No items in stock" });
-        }
-        //Inserts the Order
-        connection.query(queries.insertOrder, (err, orderRows) => {
+
+        const item = cart[index];
+
+        connection.query(queries.getCurrentStockById, [item.idProduct], (err, rows) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: err.message });
             }
-            const orderId = orderRows.insertId;
-            if (!orderId) {
-                return res.status(500).json({ error: "Could not get OrderId" });
+
+            const stockQty = rows[0].stock;
+
+            if (stockQty < item.qty) {
+                return res.status(400).json({ error: `Not enough stock for product ${item.idProduct}` });
             }
-            const insertVals = [item.idProduct, item.price, orderId, item.qty];
-            //Inserts orderItems
-            connection.query(queries.insertOrderItems, [insertVals], (err, rows) => {
-                if (err) {
-                    console.error(err);
-                    return res.status(500).json({ error: err.message });
+
+            checkStock(index + 1);
+        });
+    };
+
+    const insertOrder = () => {
+      let total = 0;
+      for (const item of cart) {
+          total += item.price * item.qty;
+      }
+      connection.query(queries.insertOrder,[total], (err, orderRows) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).json({ error: err.message });
+          }
+
+          const orderId = orderRows.insertId;
+
+          if (!orderId) {
+              return res.status(500).json({ error: "Could not get OrderId" });
+          }
+
+          insertOrderItems(orderId, 0);
+      });
+    };
+
+    const insertOrderItems = (orderId, index) => {
+        if (index >= cart.length) {
+            return res.json({ success: true, orderId: orderId });
+        }
+
+        const item = cart[index];
+        const insertVals = [item.idProduct, item.price, orderId, item.qty];
+
+        connection.query(queries.insertOrderItems, [insertVals], (err, rows) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: err.message });
+            }
+
+            const stockVals = [item.idProduct, item.qty];
+
+            connection.query(queries.decrementStock, [stockVals], (err2) => {
+                if (err2) {
+                    console.error(err2);
+                    return res.status(500).json({ error: err2.message });
                 }
-                //Decrements stock of product ordered
-                const stockVals = [ item.idProduct, item.qty];
-                connection.query(queries.decrementStock,[ stockVals], (err, rows) => {
-                  if(err){
-                    console.error(err);
-                    return res.status(500).json({ error: err.message });
-                  }
-                })
-                res.json(rows);
+
+                insertOrderItems(orderId, index + 1);
             });
         });
-    });
+    };
+
+    checkStock(0);
 });
 
 function setGETUrl(url, myQuery){

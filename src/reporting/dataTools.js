@@ -20,7 +20,6 @@ function checkStock(){
         .then(res => res.json())
         .then(data => {
             const lowStockLbl = document.getElementById("lowStock")
-            console.log(data);
             if(data.length > 0){
                 lowStockLbl.classList.remove("d-none");
                 lowStockLbl.innerHTML = `<p class="mb-1 small">Some items require ordering:</p>`

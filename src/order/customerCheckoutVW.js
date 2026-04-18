@@ -66,17 +66,17 @@ async function checkout() {
     let cart = getCart();
 
     try {
-        for (const item of cart) {
-            const res = await fetch("/api/checkout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(item)
-            });
-            const data = await res.json();
-            if (data.affectedRows === 0) {
-                console.error("Could not process order");
-                return false;
-            }
+        const res = await fetch("/api/checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cart)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error(data.error);
+            return false;
         }
 
         return true;
