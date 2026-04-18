@@ -40,7 +40,6 @@ export function getProductsById(category, id){
                         <!-- Buttons -->
                         <div class="d-flex gap-2 mb-4">
                         <button class="btn btn-primary btn-lg add-to-cart" data-id="${item.idProduct}">Add to Cart</button>
-                        <button class="btn btn-outline-light btn-lg">Buy Now</button>
                         </div>
 
                         <hr class="border-secondary">

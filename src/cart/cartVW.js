@@ -22,7 +22,7 @@ export function loadCart(){
                         <div class="card-body">
                             <h5 class="card-title">${element.title}</h5>
                             <p class="card-text text-secondary">$${element.price}</p>
-
+                            <p data-stock="${element.stock}"class="card-text text-secondary stock">Stock: ${element.stock}</p>
                             <input
                                 type="number"
                                 data-item-id="${element.idProduct}"                 
@@ -41,8 +41,8 @@ export function loadCart(){
             </div>
         `;
     });
-
-    const shipping = cart.length > 0 ? 5.00 : 0;
+    
+    const shipping =cart.length > 0 ? 5.00 : 0;
     const total = subtotal + shipping || 0;
 
     const html = `
@@ -115,4 +115,12 @@ export function loadCart(){
             });
         })
     }
+    const stockTxt = document.querySelectorAll(".stock")
+    stockTxt.forEach(element => {
+        console.log(element.dataset.stock);
+        if(element.dataset.stock <= 10){
+            element.classList.remove('text-secondary');
+             element.classList.add('text-danger');
+        }
+    });
 }
