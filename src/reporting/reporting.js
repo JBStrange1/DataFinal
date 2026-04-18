@@ -1,15 +1,15 @@
 import Chart from 'chart.js/auto';
 
-let container = document.getElementById("flies");
-
 export function initializeReports(){
     loadSalesReport();
     loadProductSalesQuarter();
+    loadStock();
 }
 
 function loadSalesReport() {
-    container.innerHTML = `
-        <div class="w-100">
+    const chartContainer = document.getElementById("adminContainer");
+    chartContainer.innerHTML += `
+        <div class="w-50">
             <canvas id="salesReporting"></canvas>
         </div>
     `;
@@ -40,10 +40,44 @@ function loadSalesReport() {
         })
         .catch(err => console.error(err));
 }
+function loadStock(){
+    let chartContainer = document.getElementById("adminContainer");
+    chartContainer.innerHTML += `
+        <div class="w-50">
+            <canvas id="productStock"></canvas>
+        </div>
+            `;
+    fetch('/api/stock')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            const rows = data;
+            const ctx  = document.getElementById("productStock");
+            const labels = rows.map(row => row.title);
+            const sales = rows.map(row => row.stock);
 
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Stock',
+                        data: sales,
+                        borderWidth: 2,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            })
+        })
+        .catch(err => console.error(err));
+}
 function loadProductSalesQuarter(){
-    container.innerHTML += `
-        <div class="w-100">
+    let chartContainer = document.getElementById("adminContainer");
+    chartContainer.innerHTML += `
+        <div class="w-50">    
             <canvas id="productSales"></canvas>
         </div>
     `;

@@ -52,55 +52,36 @@ export function confirmOrder(){
         let phoneNumber = document.getElementById("phoneNumber");
         if(firstName.value && lastName.value && address.value && phoneNumber.value){
             e.preventDefault();
-            checkout();
-            //commitOrder();
-            resetCart();
-            conformationPage();   
+            let checkedOut = await checkout();
+            if(checkedOut){
+                resetCart();
+                conformationPage();   
+            }else{
+                // show error of not processed
+            }
         }
     })
 }
+async function checkout() {
+    let cart = getCart();
 
-async function commitOrder(){
-        let cart = getCart();
-        let orderId = 0;
-        await fetch("/api/order", { method: "POST" })
-            .then((res) => {
-                res.json();
-            })
-            .then((json) => console.log(json))
-        await fetch("/api/lastId") 
-            .then(res => res.json())
-            .then(data => {
-                orderId = data[0].orderId
-        })
-        await cart.forEach(async item => {
-            let insertVals = await [item.idProduct, item.price, orderId, item.qty];
-            await fetch("/api/orderitem", {
+    try {
+        for (const item of cart) {
+            const res = await fetch("/api/checkout", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(insertVals)
-            })
-                .then(async res =>  await res.json())
-                .then(async data => {
-                    if(await data.affecteddRows == 0){
-                        await console.error("Could not process order");
-                    }
-                })
-        });
-}
-function checkout(){
-    let cart = getCart();
-    cart.forEach(item => {
-        fetch("/api/checkout", {
-            method: "POST", 
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(item)
-        })
-            .then(res => res.json())
-            .then( data => {
-                    if(data.affecteddRows == 0){
-                        console.error("Could not process order");
-                }
-            })
-    })
+                body: JSON.stringify(item)
+            });
+            const data = await res.json();
+            if (data.affectedRows === 0) {
+                console.error("Could not process order");
+                return false;
+            }
+        }
+
+        return true;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
 }

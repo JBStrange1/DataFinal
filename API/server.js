@@ -20,6 +20,7 @@ app.use(express.json());
 
 app.post("/api/checkout", (req, res) => {
     let item = req.body;
+    //Checks stock for item
     connection.query(queries.getCurrentStockById, [item.idProduct], (err, rows) => {
         if (err) {
             console.error(err);
@@ -29,25 +30,31 @@ app.post("/api/checkout", (req, res) => {
         if (stockQty < item.qty) {
             return res.status(500).json({ error: "No items in stock" });
         }
+        //Inserts the Order
         connection.query(queries.insertOrder, (err, orderRows) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: err.message });
             }
-
             const orderId = orderRows.insertId;
-
             if (!orderId) {
                 return res.status(500).json({ error: "Could not get OrderId" });
             }
-
             const insertVals = [item.idProduct, item.price, orderId, item.qty];
-
+            //Inserts orderItems
             connection.query(queries.insertOrderItems, [insertVals], (err, rows) => {
                 if (err) {
                     console.error(err);
                     return res.status(500).json({ error: err.message });
                 }
+                //Decrements stock of product ordered
+                const stockVals = [ item.idProduct, item.qty];
+                connection.query(queries.decrementStock,[ stockVals], (err, rows) => {
+                  if(err){
+                    console.error(err);
+                    return res.status(500).json({ error: err.message });
+                  }
+                })
                 res.json(rows);
             });
         });
@@ -92,14 +99,16 @@ function setPOSTUrl(url, myQuery){
   setGETUrl('/api/midges', queries.getAllMidges);
   setGETUrl('/api/nymphs', queries.getAllNymphs);
   setGETUrl('/api/flies',queries.getAllFlies);
-  
+  setGETUrl('/api/stock', queries.getAllStock);
+  setGETUrl('/api/checkMinStock', queries.getLowProductStock);
+
   //GET BY ID
   setGETUrl('/api/equipment/:id', queries.getEquipmentById);
   setGETUrl('/api/flies/:id', queries.getFlieById);
   setGETUrl('/api/materials/:id', queries.getMaterialById);
   setGETUrl('/api/products/:id', queries.getProductById);
   setGETUrl('/api/lastId', queries.getLastOrderId);
-  
+
   //REPORTING 
   setGETUrl('/api/salesReports', queries.getSalesReport);
   setGETUrl('/api/productSalesQuarter', queries.getProductSalesQuarter);
