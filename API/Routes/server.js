@@ -1,6 +1,6 @@
 var express = require("express");
 const mysql = require("mysql2");
-const dbconfig = require("./dbconfig");
+const dbconfig = require("../dbconfig");
 const queries = require("./queries")
 
 const PORT = 3006;
@@ -33,9 +33,7 @@ app.post("/api/checkout", (req, res) => {
                 console.error(err);
                 return res.status(500).json({ error: err.message });
             }
-
             const stockQty = rows[0].stock;
-
             if (stockQty < item.qty) {
                 return res.status(400).json({ error: `Not enough stock for product ${item.idProduct}` });
             }

@@ -1,5 +1,4 @@
-create
-    definer = root@localhost procedure salesReporting()
+create procedure salesReporting()
 begin
     select
         date(o.orderDate) as day,

@@ -1,5 +1,4 @@
-create
-    definer = root@localhost procedure productSalesQuarter()
+create procedure productSalesQuarter()
 begin
     select p.title, sum(oi.checkout_price * oi.quantity) from orderitems oi
     join products p on oi.idProduct = p.idProduct

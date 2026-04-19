@@ -7,16 +7,17 @@ The application demonstrates a full-stack design with a strong focus on relation
 ---
 
 ## Features
-- Browse products by category  
+- Browse products by category
+- View Product Details  
 - Search products by name  
-- Admin page with reporting and additional features  
-- Client-side cart functionality that logs orders upon checkout  
+- Admin page with reporting and Data consistency tools
+- Client-side cart functionality that inserts orders on checkout
 
 ---
 
 ## Tech Stack
-- **Frontend:** HTML, CSS, Bootstrap, JavaScript  
-- **Backend:** Node.js, Express  
+- **Frontend:** HTML, CSS, Bootstrap, JavaScript, Chart.js
+- **Backend:** Node.js, Express, mysql2
 - **Database:** MySQL  
 
 ---
@@ -38,17 +39,20 @@ The application demonstrates a full-stack design with a strong focus on relation
 ## Setup Instructions
 
 ### 1. Initialize the Database
-Run the schema script in MySQL Workbench (or your preferred client):
+Optionally run the AIO.sql script that includes everything
 
 ```bash
-initialization.sql
+/DB/AIO.sql
 ```
-
-### 2. Load Test Data
-Run the test data script:
+Or Run them seperately in order
 
 ```bash
-testdata.sql
+* initialization.sql
+* testData.sql
+* productSalesQuarter.sql
+* salesReporting.sql
+* idProduct.sql
+* orderDate.sql
 ```
 ### 3. Change dbconfig to match your credentials
 ```bash
@@ -60,35 +64,23 @@ testdata.sql
     };
 ```
 ### 4. Install Dependencies
-Make sure Node.js and npm are installed, then run:
+Make sure Node.js and npm are installed, then run this command on the API Server project and the UI project.
 
 ```bash
 npm install
 ```
 
 ### 5. Start the Application
-In one terminal run the command:
+In one terminal start the server by running the command:
 ```bash
-npm run server
+node .\Routes\server.js
 ```
-To start the API server then in another terminal run the command:
+then while in the UI project run this command:
 ```bash
 npm run dev
 ```
 ---
 
-## Usage
-Once the application is running, you can browse products, add items to your cart, and simulate placing orders through the interface.
-
----
-
-## Notes
-- The database design follows normalization principles to reduce redundancy  
-- Subtype tables allow flexible storage of category-specific attributes  
-- The system is structured to be easily extendable  
-
----
-
 ## Author
 John Strange  
-Northern Michigan University – Computer Science  
+Northern Michigan University

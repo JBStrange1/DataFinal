@@ -1,0 +1,1 @@
+create index orderDateIdx on Orders(OrderDate);
