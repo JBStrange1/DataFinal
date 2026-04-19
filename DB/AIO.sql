@@ -72,7 +72,7 @@ Create table if not exists Flies(
 --PROCEDURES
 create procedure productSalesQuarter()
 begin
-    select p.title, sum(oi.checkout_price * oi.quantity) from orderitems oi
+    select p.title, sum(oi.checkout_price * oi.quantity) as total from orderitems oi
     join products p on oi.idProduct = p.idProduct
     join orders o on oi.idOrder = o.idOrder
     where o.orderDate >= date_sub(curdate(), interval 90 day)

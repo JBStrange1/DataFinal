@@ -108,6 +108,7 @@ export function loadProductSalesQuarter(){
     fetch('/api/productSalesQuarter')
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             const rows = data[0];
             const ctx  = document.getElementById("productSales");
             const labels = rows.map(row => row.title);
