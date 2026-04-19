@@ -2,7 +2,7 @@
 
 ## Overview
 This is a simple e-commerce web application developed for **CS495 – Special Topics in Database Systems**.  
-The application demonstrates a full-stack design with a strong focus on relational database modeling and data management.
+The application shows a full-stack design with a focus on relational database modeling and data management.
 
 ---
 
