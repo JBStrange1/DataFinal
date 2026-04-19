@@ -1,4 +1,5 @@
 import { addToCart } from '../cart/cart.js';
+
 export function getAllProducts(category) {
     const container = document.getElementById("flies");
     container.innerHTML = "";
@@ -21,16 +22,12 @@ export function getAllProducts(category) {
                     </div>
                 `;
             });
-
             container.innerHTML = html;
-
             document.querySelectorAll(".add-to-cart").forEach(btn => {
                 btn.addEventListener("click", (e) => {
                     e.preventDefault();
-
                     const id = btn.dataset.id;
                     const item = data.find(p => p.idProduct == id);
-
                     addToCart(item);
                 });
             });

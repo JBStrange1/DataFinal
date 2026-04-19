@@ -82,12 +82,10 @@ function recalcTotals(){
 
 function checkStock(){
     const dataTools = document.getElementById("dataTools");
-
     dataTools.innerHTML += `
         <div id="lowStock" class="alert alert-danger d-none mb-3" role="alert"></div>
         <div id="buttonRow" class="row g-2"></div>
     `;
-
     let html = "";
     fetch('/api/checkMinStock')
         .then(res => res.json())

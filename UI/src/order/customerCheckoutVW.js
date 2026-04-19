@@ -2,7 +2,6 @@ import { conformationPage } from "./conformationVW.js";
 import { getCart, resetCart } from "../cart/cart.js";
 
 export function customerCheckoutVW(){
-    let cart = getCart(); 
     let container = document.getElementById('flies');
     let html = "";
     html = `
@@ -36,7 +35,7 @@ export function customerCheckoutVW(){
 
                     </div>
                 </div>
-    `
+    `;
     container.innerHTML = html;
     confirmOrder();
 }
@@ -59,11 +58,8 @@ export function confirmOrder(){
                 if (oldAlert) oldAlert.remove();
 
                 document.body.insertAdjacentHTML("beforeend", `
-                    <div id="successAlert"
-                        class="alert alert-danger position-fixed top-50 start-50 translate-middle alert-dismissible fade show"
-                        role="alert"
-                        style="z-index: 2000;">
-                        Could not process order!!?? dont ask why not that sophisticated
+                    <div id="successAlert" class="alert alert-danger position-fixed top-50 start-50 translate-middle alert-dismissible fade show" role="alert" style="z-index: 2000;">
+                        Could not process order!?!?
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 `);
@@ -78,22 +74,18 @@ export function confirmOrder(){
     })
 }
 async function checkout() {
-    let cart = getCart();
-
+    let cart = getCart()
     try {
         const res = await fetch("/api/checkout", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(cart)
         });
-
         const data = await res.json();
-
         if (!res.ok) {
             console.error(data.error);
             return false;
         }
-
         return true;
     } catch (err) {
         console.log(err);

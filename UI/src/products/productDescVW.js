@@ -69,12 +69,10 @@ export function getProductsById(category, id){
        document.querySelectorAll(".add-to-cart").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 e.preventDefault();
-
                 const id = btn.dataset.id;
                 const item = data.find(p => p.idProduct == id);
                 const qtyInput = document.querySelector(".quantity-input");
                 const quantity = parseInt(qtyInput.value) || 1;
-
                 addToCart(item, quantity);
             });
         });

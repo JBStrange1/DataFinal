@@ -8,7 +8,6 @@ export function initializeReports(){
     createSalesReportCanvas();
     createProductSalesQuarterCanvas();
     createStockCanvas();
-
     loadSalesReport();
     loadProductSalesQuarter();
     loadStock();

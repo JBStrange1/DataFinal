@@ -1,2 +1,6 @@
-/node_modules/
-/API/dbconfig.js/
+node_modules/
+API/dbconfig.js
+UI/dist/
+*.log
+.DS_Store
+Thumbs.db

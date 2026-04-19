@@ -23,13 +23,7 @@ export function loadCart(){
                             <h5 class="card-title">${element.title}</h5>
                             <p class="card-text text-secondary">$${element.price}</p>
                             <p data-stock="${element.stock}"class="card-text text-secondary stock">Stock: ${element.stock}</p>
-                            <input
-                                type="number"
-                                data-item-id="${element.idProduct}"                 
-                                class="form-control bg-dark text-light border-secondary w-50 quantityInc"
-                                value="${element.qty}"
-                                min="1"
-                            >
+                            <input type="number" data-item-id="${element.idProduct}" class="form-control bg-dark text-light border-secondary w-50 quantityInc" value="${element.qty}" min="1">
                         </div>
                     </div>
 
