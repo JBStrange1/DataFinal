@@ -25,5 +25,6 @@ module.exports = {
     getProductSalesQuarter:"call productSalesQuarter();",
     getCurrentStockById:"select stock from products where idProduct = ?;",
     getLowProductStock:"select title, stock from products where stock < 10;",
-    decrementStock:"call decrementStock(?);"
+    decrementStock:"call decrementStock(?);",
+    recalcTotals:"call refreshSales();"
 }

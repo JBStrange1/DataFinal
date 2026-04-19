@@ -20,19 +20,14 @@ app.use(express.json());
 
 app.post("/api/checkout", (req, res) => {
     const cart = req.body;
-
     if (!Array.isArray(cart) || cart.length === 0) {
         return res.status(400).json({ error: "Cart is empty" });
     }
-
-    // First check stock for all items
     const checkStock = (index) => {
         if (index >= cart.length) {
             return insertOrder();
         }
-
         const item = cart[index];
-
         connection.query(queries.getCurrentStockById, [item.idProduct], (err, rows) => {
             if (err) {
                 console.error(err);
@@ -59,9 +54,7 @@ app.post("/api/checkout", (req, res) => {
               console.error(err);
               return res.status(500).json({ error: err.message });
           }
-
           const orderId = orderRows.insertId;
-
           if (!orderId) {
               return res.status(500).json({ error: "Could not get OrderId" });
           }
@@ -96,7 +89,6 @@ app.post("/api/checkout", (req, res) => {
             });
         });
     };
-
     checkStock(0);
 });
 
@@ -140,7 +132,7 @@ function setPOSTUrl(url, myQuery){
   setGETUrl('/api/flies',queries.getAllFlies);
   setGETUrl('/api/stock', queries.getAllStock);
   setGETUrl('/api/checkMinStock', queries.getLowProductStock);
-
+  setGETUrl('/api/recalcOrderTotals', queries.recalcTotals);
   //GET BY ID
   setGETUrl('/api/equipment/:id', queries.getEquipmentById);
   setGETUrl('/api/flies/:id', queries.getFlieById);

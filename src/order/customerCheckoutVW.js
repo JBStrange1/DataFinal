@@ -30,9 +30,7 @@ export function customerCheckoutVW(){
                                 <label class="form-label">Phone Number</label>
                                 <input required type="tel" id="phoneNumber" class="form-control bg-dark text-light border-secondary" placeholder="Phone Number">
                             </div>
-
                             <input  id="confirmBtn" type="submit" class="btn btn-primary w-100">
-                                Submit
                             </input >
                         </form>
 
@@ -57,7 +55,24 @@ export function confirmOrder(){
                 resetCart();
                 conformationPage();   
             }else{
-                // show error of not processed
+                const oldAlert = document.getElementById("successAlert");
+                if (oldAlert) oldAlert.remove();
+
+                document.body.insertAdjacentHTML("beforeend", `
+                    <div id="successAlert"
+                        class="alert alert-danger position-fixed top-50 start-50 translate-middle alert-dismissible fade show"
+                        role="alert"
+                        style="z-index: 2000;">
+                        Could not process order!!?? dont ask why not that sophisticated
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `);
+                const alert = document.getElementById("successAlert");
+                setTimeout(() => {
+                    if (alert) {
+                        alert.remove();
+                    }
+                }, 2000);
             }
         }
     })
