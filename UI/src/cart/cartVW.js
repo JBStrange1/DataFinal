@@ -23,7 +23,14 @@ export function loadCart(){
                             <h5 class="card-title">${element.title}</h5>
                             <p class="card-text text-secondary">$${element.price}</p>
                             <p data-stock="${element.stock}"class="card-text text-secondary stock">Stock: ${element.stock}</p>
-                            <input type="number" data-item-id="${element.idProduct}" class="form-control bg-dark text-light border-secondary w-50 quantityInc" value="${element.qty}" min="1">
+                            <input 
+                                type="number" 
+                                data-item-id="${element.idProduct}" 
+                                data-prev-val="${element.qty}"
+                                class="form-control bg-dark text-light border-secondary w-50 quantityInc" 
+                                value="${element.qty}" 
+                                min="1"
+                            >
                         </div>
                     </div>
 
@@ -96,15 +103,20 @@ export function loadCart(){
         numberInputs.forEach(input => {
             input.addEventListener("change", (e) => {
                 const itemId = Number(input.dataset.itemId);
-                if(input.value > prevVal){
-                    addToCart(cart.find(item => item.idProduct == itemId), 1);
-                }else{ 
-                    if(prevVal <= 0){
-                        console.error("hey man stop it");
-                    }else{
-                        addToCart(cart.find(item => item.idProduct == itemId), -1);
-                    }
+                const prevVal = Number(input.dataset.prevVal);
+                const newVal = Number(input.value);
+                const item = cart.find(item => item.idProduct == itemId);
+                if (!item) return;
+                const diff = newVal - prevVal;
+                if (newVal <= 0) {
+                    console.error("hey man stop it");
+                    input.value = prevVal;
+                    return;
                 }
+                if (diff !== 0) {
+                    addToCart(item, diff);
+                }
+                input.dataset.prevVal = newVal;
                 loadCart();
             });
         })
