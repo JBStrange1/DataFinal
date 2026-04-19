@@ -29,6 +29,8 @@ The application shows a full-stack design with a focus on relational database mo
 - Orders  
 - OrderItems  
 
+## ERDiagram
+![Description](ERDiagram.png)
 ### Key Considerations
 - Each product exists in the `Products` table, with subtype tables storing category-specific data  
 - Each customer can have multiple orders  
