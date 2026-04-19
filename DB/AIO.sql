@@ -80,6 +80,23 @@ begin
     order by p.title desc;
 end;
 
+create procedure decrementStock(IN id int, IN qty int)
+begin
+    update products
+    set stock = stock - qty
+    where idProduct = id;
+end;
+
+create procedure refreshSales()
+begin
+    update orders o
+    set total = (
+        select ifnull(sum(oi.checkout_price * oi.quantity), 0)
+        from orderitems oi
+        where oi.idOrder = o.idOrder
+);end;
+
+
 create procedure salesReporting()
 begin
     select

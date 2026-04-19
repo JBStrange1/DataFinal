@@ -1,4 +1,4 @@
-# CS495 Final Project – E-Commerce Website
+# CS495 Final Project – Fly Shop Website
 
 ## Overview
 This is a simple e-commerce web application developed for **CS495 – Special Topics in Database Systems**.  
