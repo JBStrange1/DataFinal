@@ -59,25 +59,36 @@ function calcQuartlySales(){
     fetch('/api/calcQuarterTotal')
         .then(res => res.json())
         .then(data => {
-            console.log(data[0]);
+            let totalSales = data[0][0];
             const oldAlert = document.getElementById("successAlert");
             if (oldAlert) oldAlert.remove();
-
-            document.body.insertAdjacentHTML("beforeend", `
-                <div id="successAlert"
-                     class="alert alert-success position-fixed top-50 start-50 translate-middle alert-dismissible fade show"
-                     role="alert"
-                     style="z-index: 2000;">
-                        Total Sales For the last Quarter: $${data[0].total}.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            `);
+            if(data){
+                document.body.insertAdjacentHTML("beforeend", `
+                    <div id="successAlert"
+                        class="alert alert-success position-fixed top-50 start-50 translate-middle alert-dismissible fade show"
+                        role="alert"
+                        style="z-index: 2000;">
+                            Total Sales For the last Quarter: $${data[0][0].total}.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `);
+            }else{
+                   document.body.insertAdjacentHTML("beforeend", `
+                    <div id="successAlert"
+                        class="alert alert-danger position-fixed top-50 start-50 translate-middle alert-dismissible fade show"
+                        role="alert"
+                        style="z-index: 2000;">
+                            Could not retrieve total.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `);
+            }
             const alert = document.getElementById("successAlert");
-                     setTimeout(() => {
+                setTimeout(() => {
                 if (alert) {
                     alert.remove();
                 }
-            }, 2000);
+            }, 6000);
         })
 }
 function recalcTotals(){
