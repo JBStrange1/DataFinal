@@ -15,6 +15,7 @@ export function initializeDataTools(){
     checkStock();
     computeOrdertotals();
     refreshSales();
+    loadQuartlyTotal();
     attachButtonEvents();
 }
 
@@ -26,7 +27,6 @@ function computeOrdertotals(){
         </div>
     `;
 }
-
 function refreshSales(){
     const dataTools = document.getElementById("buttonRow");
     dataTools.innerHTML += `
@@ -35,16 +35,50 @@ function refreshSales(){
         </div>
     `;
 }
+function loadQuartlyTotal(){
+    const dataTools = document.getElementById("buttonRow");
+    dataTools.innerHTML += `
+        <div class="col-12 col-md-6">
+            <button id="quarterSales" class="btn btn-primary w-100">Quarterly Sales</button>
+        </div>
+    `;
+}
 
 function attachButtonEvents(){
     document.getElementById("recalcTotals").addEventListener("click", () => {
-        console.log("clicked");
         recalcTotals();
     });
-
     document.getElementById("refreshSalesBtn").addEventListener("click", () => {
         loadSalesReport();
     });
+    document.getElementById("quarterSales").addEventListener("click", () => {
+        calcQuartlySales();
+    })
+}
+function calcQuartlySales(){
+    fetch('/api/calcQuarterTotal')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data[0]);
+            const oldAlert = document.getElementById("successAlert");
+            if (oldAlert) oldAlert.remove();
+
+            document.body.insertAdjacentHTML("beforeend", `
+                <div id="successAlert"
+                     class="alert alert-success position-fixed top-50 start-50 translate-middle alert-dismissible fade show"
+                     role="alert"
+                     style="z-index: 2000;">
+                        Total Sales For the last Quarter: $${data[0].total}.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `);
+            const alert = document.getElementById("successAlert");
+                     setTimeout(() => {
+                if (alert) {
+                    alert.remove();
+                }
+            }, 2000);
+        })
 }
 function recalcTotals(){
     fetch('/api/recalcOrderTotals')

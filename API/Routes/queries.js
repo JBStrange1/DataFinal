@@ -9,6 +9,7 @@ module.exports = {
     getAllDrys:"select * from Products p, Flies f where f.idProduct = p.idProduct and f.type = 'dry'",
     getAllNymphs: "select * from Products p, Flies f where f.idProduct = p.idProduct and f.type = 'nymph'",
     getAllStock:"select title, stock from products",
+    getQuartlyTotals: "call totalQuarterSales()",
     //GET BY ID
     getProductById:"select * from Products where idProduct = ?",
     getEquipmentById:"select * from products p, equipment f where p.idProduct = f.idProduct and p.idProduct = ?",

@@ -131,6 +131,8 @@ function setPOSTUrl(url, myQuery){
   setGETUrl('/api/stock', queries.getAllStock);
   setGETUrl('/api/checkMinStock', queries.getLowProductStock);
   setGETUrl('/api/recalcOrderTotals', queries.recalcTotals);
+  setGETUrl('/api/calcQuarterTotal', queries.getQuartlyTotals);
+  
   //GET BY ID
   setGETUrl('/api/equipment/:id', queries.getEquipmentById);
   setGETUrl('/api/flies/:id', queries.getFlieById);
